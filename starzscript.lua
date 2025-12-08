@@ -771,6 +771,9 @@ task.spawn(function()
                         AddButton("Macroware", function() loadstring(game:HttpGet("https://macroware.cc/loader.lua"))() end)
                     end)
 
+                    local fpsBoosted = false
+                    local originalSettings = {}
+
                     MiscTab.MouseButton1Click:Connect(function()
                         SelectCategory(MiscTab)
                         ClearContent()
@@ -787,11 +790,36 @@ task.spawn(function()
                         AddButton("Copy Discord", function() setclipboard("https://discord.gg/j78zS2USdu")
                             game.StarterGui:SetCore("SendNotification",{Title="Copied",Text="discord.gg/j78zS2USdu",Duration=3}) end)
                         AddButton("FPS Boost", function()
+                            if fpsBoosted then return end
+                            fpsBoosted = true
+                            originalSettings.quality = settings().Rendering.QualityLevel
                             for _,v in workspace:GetDescendants() do
-                                if v:IsA("BasePart") then v.Material = Enum.Material.SmoothPlastic; v.Reflectance = 0 end
-                                if v:IsA("Decal") or v:IsA("Texture") then v.Transparency = 1 end
+                                if v:IsA("BasePart") then
+                                    originalSettings[v] = {Material = v.Material, Reflectance = v.Reflectance}
+                                    v.Material = Enum.Material.SmoothPlastic
+                                    v.Reflectance = 0
+                                elseif v:IsA("Decal") or v:IsA("Texture") then
+                                    originalSettings[v] = {Transparency = v.Transparency}
+                                    v.Transparency = 1
+                                end
                             end
                             settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
+                        end)
+                        AddButton("UnFPS", function()
+                            if not fpsBoosted then return end
+                            fpsBoosted = false
+                            for obj, props in pairs(originalSettings) do
+                                if typeof(obj) == "Instance" and obj.Parent then
+                                    if obj:IsA("BasePart") then
+                                        obj.Material = props.Material
+                                        obj.Reflectance = props.Reflectance
+                                    elseif obj:IsA("Decal") or obj:IsA("Texture") then
+                                        obj.Transparency = props.Transparency
+                                    end
+                                end
+                            end
+                            settings().Rendering.QualityLevel = originalSettings.quality
+                            originalSettings = {}
                         end)
                     end)
 
@@ -799,7 +827,6 @@ task.spawn(function()
                         SelectCategory(ScriptsTab)
                         ClearContent()
                         AddButton("Prison Life", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/scripture2025/FlashHub/refs/heads/main/PrisonLife"))() end)
-                        AddButton("Blade Ball", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Unknown-Hitten/unknownscripts/refs/heads/main/bladeball.lua"))() end)
                     end)
 
                     -- DRAG GUI
