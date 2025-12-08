@@ -9,7 +9,7 @@ task.spawn(function()
         local pgui = player:WaitForChild("PlayerGui")
         
         -- PASSWORD CONFIGURATION
-        local CORRECT_PASSWORD = "starz123"  -- Change this to your desired password
+        local CORRECT_PASSWORD = "starz12"  -- Change this to your desired password
         local MAX_ATTEMPTS = 3
         
         -- Mobile detection
