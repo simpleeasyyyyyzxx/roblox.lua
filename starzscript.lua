@@ -7,7 +7,7 @@ task.spawn(function()
         local player = Players.LocalPlayer
         local pgui = player:WaitForChild("PlayerGui")
 
-        local CORRECT_PASSWORD = "starz"
+        local CORRECT_PASSWORD = "starzrelease"
         local MAX_ATTEMPTS = 3
         local passwordAttempts = 0
         local isMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled
