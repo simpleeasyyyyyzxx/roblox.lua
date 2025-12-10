@@ -18,7 +18,6 @@ task.spawn(function()
             Duration = 6
         })
 
-        -- KEY TOGGLE BUTTON
         local ToggleScreen = Instance.new("ScreenGui")
         ToggleScreen.Name = "StarzToggle"
         ToggleScreen.ResetOnSpawn = false
