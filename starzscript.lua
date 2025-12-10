@@ -78,7 +78,7 @@ task.spawn(function()
         PasswordTitle.Size = UDim2.new(1,-60,1,0)
         PasswordTitle.Position = UDim2.new(0,15,0,0)
         PasswordTitle.BackgroundTransparency = 1
-        PasswordTitle.Text = "starz password system"
+        PasswordTitle.Text = "starz key system"
         PasswordTitle.TextColor3 = Color3.fromRGB(255,220,100)
         PasswordTitle.Font = Enum.Font.GothamBlack
         PasswordTitle.TextSize = 18
@@ -144,12 +144,12 @@ task.spawn(function()
             if isPasswordOpen then
                 PasswordFrame.Visible = true
                 PasswordFrame:TweenPosition(UDim2.new(0.5, isMobile and -160 or -190, 0.5, isMobile and -140 or -150), "Out", "Back", 0.4, true)
-                ToggleButton.Text = "🔒"
+                ToggleButton.Text = "🔑"
                 task.wait(0.3)
                 PasswordBox:CaptureFocus()
             else
                 PasswordFrame:TweenPosition(UDim2.new(0.5, isMobile and -160 or -190, -1, 0), "In", "Quad", 0.3, true)
-                ToggleButton.Text = "Key"
+                ToggleButton.Text = "🔑"
                 task.wait(0.3)
                 PasswordFrame.Visible = false
             end
