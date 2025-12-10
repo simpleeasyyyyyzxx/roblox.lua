@@ -278,7 +278,7 @@ function LoadMainUI()
             -- TITLE BAR
             local TitleBar = Instance.new("Frame")
             TitleBar.Size = UDim2.new(1,0,0,50)
-            TitleBar.BackgroundColor3 = Color3.fromRGB(255,180,40)
+            TitleBar.BackgroundColor3 = Color3.fromRGB(18,18,35)
             TitleBar.Parent = MainFrame
             Instance.new("UICorner", TitleBar).CornerRadius = UDim.new(0,16)
 
