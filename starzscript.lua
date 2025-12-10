@@ -30,7 +30,7 @@ task.spawn(function()
         ToggleButton.Size = UDim2.new(0, 60, 0, 60)
         ToggleButton.Position = UDim2.new(0, 20, 0.5, -30)
         ToggleButton.BackgroundColor3 = Color3.fromRGB(25, 25, 40)
-        ToggleButton.Text = "Key"
+        ToggleButton.Text = "🔑"
         ToggleButton.TextColor3 = Color3.fromRGB(255, 220, 100)
         ToggleButton.Font = Enum.Font.GothamBlack
         ToggleButton.TextSize = 28
@@ -144,7 +144,7 @@ task.spawn(function()
             if isPasswordOpen then
                 PasswordFrame.Visible = true
                 PasswordFrame:TweenPosition(UDim2.new(0.5, isMobile and -160 or -190, 0.5, isMobile and -140 or -150), "Out", "Back", 0.4, true)
-                ToggleButton.Text = "Lock"
+                ToggleButton.Text = "🔒"
                 task.wait(0.3)
                 PasswordBox:CaptureFocus()
             else
