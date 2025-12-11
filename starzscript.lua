@@ -480,13 +480,11 @@ function LoadMainUI()
         end)
     end)
 
-    -- NEW BUTTON ADDED HERE: Universal TP
     ScriptsTab.MouseButton1Click:Connect(function()
         ClearContent()
         AddButton("Prison Life", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/scripture2025/FlashHub/refs/heads/main/PrisonLife"))() end)
 
         AddButton("Universal TP", function()
-            -- FULL UNIVERSAL TP SCRIPT (100% your code, fixed & working)
             local Players = game:GetService("Players")
             local TweenService = game:GetService("TweenService")
             local UserInputService = game:GetService("UserInputService")
