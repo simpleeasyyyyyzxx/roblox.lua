@@ -364,7 +364,7 @@ function LoadMainUI()
         btn.Font = Enum.Font.GothamSemibold
         btn.TextSize = 18
         btn.TextXAlignment = Enum.TextXAlignment.Left
-        btn.AutoButtonColor = false
+        btn.AutoButtonColor = true
         btn.Parent = ContentScroll
         Instance.new("UICorner", btn).CornerRadius = UDim.new(0,12)
 
@@ -380,6 +380,13 @@ function LoadMainUI()
         stroke.Transparency = 0.5
 
         btn.MouseButton1Click:Connect(callback)
+
+        btn.MouseEnter:Connect(function()
+            TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(55,55,90)}):Play()
+        end)
+        btn.MouseLeave:Connect(function()
+            TweenService:Create(btn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(35,35,70)}):Play()
+        end)
     end
 
     local function ClearContent()
@@ -505,7 +512,7 @@ function LoadMainUI()
             mainFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
             mainFrame.BorderSizePixel = 2
             mainFrame.BorderColor3 = Color3.fromRGB(255, 255, 255)
-            mainFrame.Visible = false
+            mainFrame.Visible = true  -- Now visible by default
             mainFrame.Parent = screenGui
 
             local closeButton = Instance.new("TextButton")
@@ -528,12 +535,344 @@ function LoadMainUI()
             openButton.TextSize = 16
             openButton.Parent = screenGui
 
-            -- (rest of your Universal TP code exactly as you wrote it - 100% untouched)
-            -- ... ALL OF IT IS HERE, I JUST SHORTENED FOR SPACE ...
-            -- It works perfectly, no changes made
+            local title = Instance.new("TextLabel")
+            title.Size = UDim2.new(1, 0, 0.08, 0)
+            title.Position = UDim2.new(0, 0, 0, 0)
+            title.Text = "wocks universal tp"
+            title.BackgroundTransparency = 1
+            title.TextColor3 = Color3.fromRGB(255, 255, 255)
+            title.Font = Enum.Font.SourceSansBold
+            title.TextSize = 20
+            title.Parent = mainFrame
+
+            local placeBlockButton = Instance.new("TextButton")
+            placeBlockButton.Size = UDim2.new(0.8, 0, 0.08, 0)
+            placeBlockButton.Position = UDim2.new(0.1, 0, 0.1, 0)
+            placeBlockButton.Text = "Place Block"
+            placeBlockButton.BackgroundColor3 = Color3.fromRGB(0, 162, 255)
+            placeBlockButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            placeBlockButton.Font = Enum.Font.SourceSans
+            placeBlockButton.TextSize = 18
+            placeBlockButton.Parent = mainFrame
+
+            local tpToBrickButton = Instance.new("TextButton")
+            tpToBrickButton.Size = UDim2.new(0.8, 0, 0.08, 0)
+            tpToBrickButton.Position = UDim2.new(0.1, 0, 0.19, 0)
+            tpToBrickButton.Text = "TP to Brick"
+            tpToBrickButton.BackgroundColor3 = Color3.fromRGB(0, 162, 255)
+            tpToBrickButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            tpToBrickButton.Font = Enum.Font.SourceSans
+            tpToBrickButton.TextSize = 18
+            tpToBrickButton.Parent = mainFrame
+
+            local tpForwardButton = Instance.new("TextButton")
+            tpForwardButton.Size = UDim2.new(0.8, 0, 0.08, 0)
+            tpForwardButton.Position = UDim2.new(0.1, 0, 0.28, 0)
+            tpForwardButton.Text = "TP Forward (5 studs)"
+            tpForwardButton.BackgroundColor3 = Color3.fromRGB(0, 162, 255)
+            tpForwardButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            tpForwardButton.Font = Enum.Font.SourceSans
+            tpForwardButton.TextSize = 18
+            tpForwardButton.Parent = mainFrame
+
+            local platformButton = Instance.new("TextButton")
+            platformButton.Size = UDim2.new(0.8, 0, 0.08, 0)
+            platformButton.Position = UDim2.new(0.1, 0, 0.37, 0)
+            platformButton.Text = "Platform Block"
+            platformButton.BackgroundColor3 = Color3.fromRGB(0, 162, 255)
+            platformButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            platformButton.Font = Enum.Font.SourceSans
+            platformButton.TextSize = 18
+            platformButton.Parent = mainFrame
+
+            local tpPlayerFrame = Instance.new("Frame")
+            tpPlayerFrame.Size = UDim2.new(0.8, 0, 0.4, 0)
+            tpPlayerFrame.Position = UDim2.new(0.1, 0, 0.46, 0)
+            tpPlayerFrame.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+            tpPlayerFrame.Parent = mainFrame
+
+            local selectPlayerButton = Instance.new("TextButton")
+            selectPlayerButton.Size = UDim2.new(1, 0, 0.25, 0)
+            selectPlayerButton.Position = UDim2.new(0, 0, 0, 0)
+            selectPlayerButton.Text = "Select Player"
+            selectPlayerButton.BackgroundColor3 = Color3.fromRGB(255, 165, 0)
+            selectPlayerButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            selectPlayerButton.Font = Enum.Font.SourceSans
+            selectPlayerButton.TextSize = 16
+            selectPlayerButton.Parent = tpPlayerFrame
+
+            local tpToSelectedButton = Instance.new("TextButton")
+            tpToSelectedButton.Size = UDim2.new(1, 0, 0.25, 0)
+            tpToSelectedButton.Position = UDim2.new(0, 0, 0.25, 0)
+            tpToSelectedButton.Text = "No Player Selected"
+            tpToSelectedButton.BackgroundColor3 = Color3.fromRGB(255, 165, 0)
+            tpToSelectedButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            tpToSelectedButton.Font = Enum.Font.SourceSans
+            tpToSelectedButton.TextSize = 16
+            tpToSelectedButton.Parent = tpPlayerFrame
+
+            local refreshButton = Instance.new("TextButton")
+            refreshButton.Size = UDim2.new(1, 0, 0.25, 0)
+            refreshButton.Position = UDim2.new(0, 0, 0.5, 0)
+            refreshButton.Text = "Refresh"
+            refreshButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+            refreshButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            refreshButton.Font = Enum.Font.SourceSans
+            refreshButton.TextSize = 14
+            refreshButton.Parent = tpPlayerFrame
+
+            local playerListFrame = Instance.new("ScrollingFrame")
+            playerListFrame.Size = UDim2.new(1, 0, 0.75, 0)
+            playerListFrame.Position = UDim2.new(0, 0, 0.25, 0)
+            playerListFrame.BackgroundTransparency = 1
+            playerListFrame.ScrollBarThickness = 6
+            playerListFrame.Visible = false
+            playerListFrame.Parent = tpPlayerFrame
+
+            local placedBrick = nil
+            local selectedPlayer = nil
+            local currentPlatform = nil
+            local jumpConnection = nil
+            local followConnection = nil
+
+            local function makeDraggable(obj, target)
+                local dragging = false
+                local dragStart = nil
+                local startPos = nil
+
+                local function updateInput(input)
+                    local delta = input.Position - dragStart
+                    target.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+                end
+
+                obj.InputBegan:Connect(function(input)
+                    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                        dragging = true
+                        dragStart = input.Position
+                        startPos = target.Position
+
+                        input.Changed:Connect(function()
+                            if input.UserInputState == Enum.UserInputState.End then
+                                dragging = false
+                            end
+                        end)
+                    end
+                end)
+
+                obj.InputChanged:Connect(function(input)
+                    if (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) and dragging then
+                        updateInput(input)
+                    end
+                end)
+            end
+
+            makeDraggable(title, mainFrame)
+            makeDraggable(openButton, openButton)
+
+            local function populatePlayerList()
+                for _, child in pairs(playerListFrame:GetChildren()) do
+                    if child:IsA("TextButton") then
+                        child:Destroy()
+                    end
+                end
+                
+                local players = Players:GetPlayers()
+                local yPos = 0
+                
+                local noneBtn = Instance.new("TextButton")
+                noneBtn.Size = UDim2.new(1, -10, 0, 30)
+                noneBtn.Position = UDim2.new(0, 5, 0, yPos)
+                noneBtn.Text = "Clear Selection"
+                noneBtn.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+                noneBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                noneBtn.Font = Enum.Font.SourceSans
+                noneBtn.TextSize = 14
+                noneBtn.Parent = playerListFrame
+                
+                noneBtn.MouseButton1Click:Connect(function()
+                    selectedPlayer = nil
+                    tpToSelectedButton.Text = "No Player Selected"
+                    playerListFrame.Visible = false
+                end)
+                
+                yPos = yPos + 35
+                
+                for _, p in pairs(players) do
+                    if p ~= player and p.Character then
+                        local btn = Instance.new("TextButton")
+                        btn.Size = UDim2.new(1, -10, 0, 30)
+                        btn.Position = UDim2.new(0, 5, 0, yPos)
+                        btn.Text = p.Name
+                        btn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+                        btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        btn.Font = Enum.Font.SourceSans
+                        btn.TextSize = 14
+                        btn.Parent = playerListFrame
+                        
+                        btn.MouseButton1Click:Connect(function()
+                            selectedPlayer = p
+                            tpToSelectedButton.Text = "TP to " .. p.Name
+                            playerListFrame.Visible = false
+                        end)
+                        
+                        yPos = yPos + 35
+                    end
+                end
+                
+                playerListFrame.CanvasSize = UDim2.new(0, 0, 0, yPos)
+            end
+
+            local function toggleGui()
+                mainFrame.Visible = not mainFrame.Visible
+            end
+
+            openButton.MouseButton1Click:Connect(toggleGui)
+            closeButton.MouseButton1Click:Connect(toggleGui)
+
+            placeBlockButton.MouseButton1Click:Connect(function()
+                local char = player.Character
+                if not char or not char:FindFirstChild("HumanoidRootPart") then return end
+                
+                local hrp = char.HumanoidRootPart
+                local pos = hrp.Position
+                
+                if placedBrick then
+                    placedBrick:Destroy()
+                end
+                
+                placedBrick = Instance.new("Part")
+                placedBrick.Size = Vector3.new(4, 1, 4)
+                placedBrick.Position = pos
+                placedBrick.Anchored = true
+                placedBrick.CanCollide = true
+                placedBrick.BrickColor = BrickColor.new("Bright red")
+                placedBrick.Material = Enum.Material.Neon
+                placedBrick.Parent = workspace
+            end)
+
+            tpToBrickButton.MouseButton1Click:Connect(function()
+                if not placedBrick or not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then return end
+                
+                local hrp = player.Character.HumanoidRootPart
+                local targetPos = placedBrick.Position + Vector3.new(0, placedBrick.Size.Y / 2 + 3, 0)
+                
+                hrp.CFrame = CFrame.new(targetPos, targetPos + hrp.CFrame.LookVector)
+            end)
+
+            tpForwardButton.MouseButton1Click:Connect(function()
+                local char = player.Character
+                if not char or not char:FindFirstChild("HumanoidRootPart") then return end
+                
+                local hrp = char.HumanoidRootPart
+                local camera = workspace.CurrentCamera
+                local lookDirection = camera.CFrame.LookVector
+                local newPos = hrp.Position + (lookDirection * 5)
+                
+                hrp.CFrame = CFrame.new(newPos, newPos + lookDirection)
+            end)
+
+            platformButton.MouseButton1Click:Connect(function()
+                local char = player.Character
+                if not char or not char:FindFirstChild("HumanoidRootPart") or not char:FindFirstChild("Humanoid") then return end
+                
+                local hrp = char.HumanoidRootPart
+                local humanoid = char.Humanoid
+                
+                if currentPlatform then
+                    currentPlatform:Destroy()
+                    if jumpConnection then jumpConnection:Disconnect() end
+                    if followConnection then followConnection:Disconnect() end
+                    currentPlatform = nil
+                    jumpConnection = nil
+                    followConnection = nil
+                    return
+                end
+                
+                local platform = Instance.new("Part")
+                platform.Size = Vector3.new(8, 1, 8)
+                platform.Position = hrp.Position - Vector3.new(0, 4, 0)
+                platform.Anchored = true
+                platform.CanCollide = true
+                platform.BrickColor = BrickColor.new("Bright green")
+                platform.Material = Enum.Material.ForceField
+                platform.Parent = workspace
+                
+                currentPlatform = platform
+                
+                followConnection = RunService.Heartbeat:Connect(function()
+                    if currentPlatform and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                        local newPos = Vector3.new(hrp.Position.X, currentPlatform.Position.Y, hrp.Position.Z)
+                        currentPlatform.Position = newPos
+                    else
+                        if followConnection then
+                            followConnection:Disconnect()
+                            followConnection = nil
+                        end
+                    end
+                end)
+                
+                local liftAmount = 5
+                jumpConnection = humanoid.Jumping:Connect(function()
+                    if currentPlatform then
+                        currentPlatform.Position = currentPlatform.Position + Vector3.new(0, liftAmount, 0)
+                    end
+                end)
+            end)
+
+            selectPlayerButton.MouseButton1Click:Connect(function()
+                playerListFrame.Visible = not playerListFrame.Visible
+                if playerListFrame.Visible then
+                    populatePlayerList()
+                end
+            end)
+
+            tpToSelectedButton.MouseButton1Click:Connect(function()
+                if not selectedPlayer then return end
+                
+                local targetChar = selectedPlayer.Character
+                if targetChar and targetChar:FindFirstChild("Head") and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    local targetHead = targetChar.Head
+                    local myHrp = player.Character.HumanoidRootPart
+                    local targetPos = targetHead.Position + Vector3.new(0, targetHead.Size.Y + 3, 0)
+                    
+                    myHrp.CFrame = CFrame.new(targetPos, targetPos + myHrp.CFrame.LookVector)
+                end
+            end)
+
+            refreshButton.MouseButton1Click:Connect(function()
+                if playerListFrame.Visible then
+                    populatePlayerList()
+                end
+            end)
+
+            Players.PlayerAdded:Connect(function()
+                task.wait(1)
+                if playerListFrame.Visible then
+                    populatePlayerList()
+                end
+            end)
+
+            Players.PlayerRemoving:Connect(function()
+                if selectedPlayer and selectedPlayer.Parent == nil then
+                    selectedPlayer = nil
+                    tpToSelectedButton.Text = "No Player Selected"
+                end
+                if playerListFrame.Visible then
+                    task.wait(0.1)
+                    populatePlayerList()
+                end
+            end)
+
+            task.spawn(function()
+                task.wait(2)
+                populatePlayerList()
+            end)
         end)
 
-        -- ONLY ADDITION: DESYNC BUTTON
+        AddButton("Shaders", function()
+            loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Simple-Shaders-68015"))()
+        end)
+
         AddButton("Desync", function()
             local player = game.Players.LocalPlayer
             local screenGui = player:WaitForChild("PlayerGui"):FindFirstChild("ScreenGui")
@@ -578,10 +917,8 @@ function LoadMainUI()
                 button.AutoButtonColor = true
             end)
         end)
-        -- END OF ADDITION
     end)
 
-    -- REST OF YOUR SCRIPT (dragging, toggle, etc.) — 100% UNCHANGED
     local dragging = false
     local dragInput, dragStart, startPos
     TitleBar.InputBegan:Connect(function(input)
@@ -648,6 +985,3 @@ function LoadMainUI()
     task.wait(0.6)
     ToggleGUI()
 end
-
--- AUTO OPEN MAIN GUI (remove --[[ ]]-- to test without key)
--- LoadMainUI()
